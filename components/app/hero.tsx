@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <div className="flex flex-col items-center pt-[250px] relative">
       <p className="text-[42px] font-semibold">Make easy money with financial investment</p>
-      <p className="text-[30px] font-bold">in one <span className="text-[#500480]">Tradeo</span></p>
+      <p className="text-[30px] font-bold">in one <span className="text-[#500480]">Tradeo Developed by PRITAM RAUTH</span></p>
       <div className="flex flex-col items-center mt-6 text-muted-foreground">
         <p>Browse all stocks, keep track of any stock changes</p>
         <p>and get immediate financial advice from DT advisors</p>
