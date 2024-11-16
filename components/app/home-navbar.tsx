@@ -24,9 +24,7 @@ const HomeNavbar = () => {
 
 
       <div className="flex items-center space-x-8 font-semibold">
-        <div>Home</div>
-        <div>Pricing</div>
-        <div>About Us</div>
+        
         <Link
           href="/dashboard"
         >

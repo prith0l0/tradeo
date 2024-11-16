@@ -12,7 +12,7 @@ import { ThemeProvider } from "@/components/app/theme-provider"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Dynamite Trade',
+  title: 'Tradeo',
   description: 'Invest your money with DTrade',
 }
 

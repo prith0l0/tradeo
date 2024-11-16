@@ -35,7 +35,7 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
       <ChatMessage
         isLoading={fakeLoading}
         role="system"
-        content={"hi, this is Dynamite Trade. How can i help you today?"}
+        content={"hi, this is Tradeo. How can i help you today?"}
       />
       {messages.map((item) => (
         <ChatMessage
