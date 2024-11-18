@@ -38,7 +38,7 @@ const Hero = () => {
       </div>
       <div className='absolute bottom-[220px]'>
         <Image
-          src='/landing-page/landing-animation.gif'
+          src='/landing-page/TRADEO.png'
           alt='landing page animation'
           width={1000}
           height={700}
