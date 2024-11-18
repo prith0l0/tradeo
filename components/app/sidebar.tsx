@@ -28,12 +28,6 @@ const Sidebar = () => {
       icon: IoStorefrontOutline,
       isActive: pathName === "/market"
     },
-    {
-      name: "Message",
-      href: `/chat`,
-      icon: TbMessageBolt,
-      isActive: pathName === "/chat"
-    },
 
   ]
 

@@ -12,7 +12,7 @@ const Hero = () => {
       <p className="text-[30px] font-bold">in one <span className="text-[#500480]">Tradeo Developed by PRITAM RAUTH</span></p>
       <div className="flex flex-col items-center mt-6 text-muted-foreground">
         <p>Browse all stocks, keep track of any stock changes</p>
-        <p>and get immediate financial advice from DT advisors</p>
+        <p>and get immediate financial advice from TRADEO advisors</p>
       </div>
       <div className="flex mt-8 space-x-2">
         <Link

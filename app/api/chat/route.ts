@@ -1,52 +1,45 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import prismadb from "@/lib/prismadb";
-import { Configuration, OpenAIApi } from "openai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+const apiKey = process.env.GEMINI_API_KEY as string;
+
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-pro",
 });
 
-const openai = new OpenAIApi(configuration);
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
 
-export async function POST(
-  request: Request
-) {
+export async function POST(request: Request) {
   try {
-
-    const { userId } = auth();
     const { messages } = await request.json();
 
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    if (!configuration.apiKey) {
-      return new NextResponse("OpenAI API Key not configured.", { status: 500 });
+    if (!apiKey) {
+      return new NextResponse("Google Generative AI API Key not configured.", { status: 500 });
     }
 
     if (!messages) {
       return new NextResponse("Messages are required", { status: 400 });
     }
-    const systemMessage = {
-      role: "system",
-      content: "you are a financial specialist who works at Tradeo that  helps clients with their investment decisions. YOU ONLY NEED TO ANSWER QUESTIONS THAT ARE related to financial aspect. If the user asks something else, please just reply you're only capable of answering financial  related question. Additional infor regarding your working company,Tradeo is a stock trading platform that allows customers to buy and sell stocks, view in-depth stock data, charts and AI integrated. You have in-depth knowledge regarding company overview in nasdaq or in the US market. ",
-    }
 
-    const messageArray = []
-    messageArray.push(systemMessage, messages)
-    console.log(messageArray)
-    const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: messageArray,
-      max_tokens: 80
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [],
     });
-    messageArray.length = 0;
-    const formatMessage = response.data.choices[0].message
-    return NextResponse.json(formatMessage);
 
+    const result = await chatSession.sendMessage(messages);
+
+    return NextResponse.json({
+      response: result.response.text(),
+    });
   } catch (error) {
-    return new NextResponse("Internal Error", { status: 500 });
-  }
+    console.error("Error with Generative AI:", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
 }
